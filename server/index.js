@@ -9,7 +9,8 @@ const express = require('express'),
 
       const {
           SERVER_PORT,
-          SESSION_SECRET
+          SESSION_SECRET,
+          CONNECTION_STRING
       } = process.env
 
 const app = express()
@@ -25,4 +26,7 @@ app.use(sessions({
     }
 }))
 
-app.listen(SERVER_PORT, () => console.log(`Server making magic on port ${SERVER_PORT}`))
+massive(CONNECTION_STRING).then( db => {
+    app.set( 'db', db )
+    app.listen(SERVER_PORT, () => console.log(`Server making magic on port ${SERVER_PORT}`))
+})
