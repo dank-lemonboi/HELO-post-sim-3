@@ -1,0 +1,23 @@
+.dahsboard_parent_container {
+    box-sizing: border-box;
+}
+
+.dashboard_child_top {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 1em;
+}
+
+.dashboard_recommend_parent {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 3em;
+
+}
+
+.dashboard_recommend_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

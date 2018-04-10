@@ -6,7 +6,8 @@ const express = require('express'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0'),
       cors = require('cors'),
-      checkForSession = require('./middlewares/checkForSession')
+      checkForSession = require('./middlewares/checkForSession'),
+      roboHash = require('./middlewares/roboHash')
 
       const {
           SERVER_PORT,
@@ -48,7 +49,8 @@ passport.use(new Auth0Strategy({
 
   const db = app.get('db')
   const userData = profile._json
-  userData.picture = '<img src=`https://robohash.org/${this.roboHash()}.png`/>'
+  let num = roboHash()
+  userData.picture = `https://robohash.org/${num}.png`
 
   db.find_user([ profile.user_id ]).then( user => {
    if (!user[0]) {

@@ -7,15 +7,25 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    box-sizing: border-box
 }
 
 .navbar_left_container {
     display: flex;    
-    width: 33.3333%;    
+    width: 33.3333%;  
+    margin-left: 5em;  
+    box-sizing: border-box
+    
 }
 
 .navbar_left_container img {
     margin-left: 12px;
+}
+
+.container_left_title {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 img:hover {
@@ -24,9 +34,17 @@ img:hover {
 
 .navbar_center {
     width: 33.3333%;
+    box-sizing: border-box; 
+    font-size: 24px;
+    letter-spacing: 1px;
+    
 }
 
-.navbar_right_container {    
+.navbar_right_container { 
+    margin-right: 6em;  
+    box-sizing: border-box; 
+    font-size: 18px;
+    letter-spacing: 1px; 
 }
 
 .logout_button:hover {
