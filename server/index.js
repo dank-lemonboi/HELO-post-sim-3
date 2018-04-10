@@ -4,13 +4,20 @@ const express = require('express'),
       massive = require('massive'),
       sessions = require('express-session'),
       passport = require('passport'),
-      auth0Strategy = require('passport-auth0'),
-      cors = require('cors')
+      Auth0Strategy = require('passport-auth0'),
+      cors = require('cors'),
+      checkForSession = require('./middlewares/checkForSession')
 
       const {
           SERVER_PORT,
           SESSION_SECRET,
-          CONNECTION_STRING
+          CONNECTION_STRING,
+          DOMAIN,
+          CLIENT_ID,
+          CLIENT_SECRET,
+          CALLBACK_URL,
+          REACT_APP_SUCCESS,
+          REACT_APP_FAILURE
       } = process.env
 
 const app = express()
@@ -25,6 +32,65 @@ app.use(sessions({
         maxAge: 234000
     }
 }))
+
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+passport.use(new Auth0Strategy({
+  domain: DOMAIN,
+  clientID: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  callbackURL: CALLBACK_URL,
+  scope: 'openid profile'
+}, function(accessToken, refreshToken, extraParams, profile, done) {
+
+  const db = app.get('db')
+  const userData = profile._json
+  userData.picture = '<img src=`https://robohash.org/${this.roboHash()}.png`/>'
+
+  db.find_user([ profile.user_id ]).then( user => {
+   if (!user[0]) {
+       db.create_user([userData.family_name, userData.given_name, userData.picture, profile.id]).then( user => {
+        return done( null, user[0].user_id );
+} ) } else {
+        return done( null, user[0].user_id );
+          }
+        })
+    }
+))
+
+app.get('/auth', passport.authenticate('auth0'))
+app.get('/auth/callback', passport.authenticate('auth0', {
+    successRedirect: REACT_APP_SUCCESS,
+    failureRedirect: REACT_APP_FAILURE
+})
+)
+
+passport.serializeUser( (user_id, done) => {
+  return done(null, user_id);
+});
+
+passport.deserializeUser( (user_id, done) => {
+  const db = app.get("db")
+    db.find_session_user([user_id]).then(user => {
+      return done(null, user[0]);
+    });
+});
+
+app.get('/auth/me', (req, res) => {
+    if(req.user) {
+        res.status(200).send(req.user)
+    } else {
+        res.status(401).send('Nice try... Login Homie.')
+    }
+})
+
+app.get('/api/logout', (req, res) => {
+    req.logOut()
+    res.status(200).send()
+})
 
 massive(CONNECTION_STRING).then( db => {
     app.set( 'db', db )
