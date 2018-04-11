@@ -14,26 +14,31 @@ export default class Navbar extends Component {
             page: 1
         }
 
-        this.logOut = this.logOut.bind(this)
+        // this.logOut = this.logOut.bind(this)
     }
 
-    logOut() {
-        axios.get('api/logout').then( res => {
-        }, window.location.href = '/')
-    }
+    // logOut() {
+    //     axios.get('/api/logout').then( res => {
+    //         console.log('user logged out')
+    //         }).catch()
+    // }
 
     render(){
         return <div className="navbar_parent">
             <div className="navbar_left_container">
-                <div className='container_left_title'>Helo</div>
-                <Link to='/dashboard'><img src={Home} alt="Home Navbar Icon"/></Link>
-                <Link to={`/search/${this.state.page}`}><img src={Search} alt="Search Navbar Icon"/></Link>
+              <div className="container_left_title">Helo</div>
+              <Link to="/dashboard">
+                <img src={Home} alt="Home Navbar Icon" />
+              </Link>
+              <Link to={`/search/${this.state.page}`}>
+                <img src={Search} alt="Search Navbar Icon" />
+              </Link>
             </div>
             <div className="navbar_center">{this.props.param}</div>
             <div className="navbar_right_container">
-              <div className="logout_button" onClick={ () => this.logOut() }>
-                Logout
-              </div>
+              <a href={process.env.REACT_APP_LOGOUT}>
+                <div className="logout_button">Logout</div>
+              </a>
             </div>
           </div>;
     }

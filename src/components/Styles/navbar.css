@@ -50,3 +50,13 @@ img:hover {
 .logout_button:hover {
     cursor: pointer;
 }
+
+a {
+  text-decoration: none;
+  color: white;
+
+}
+
+a:visited {
+  color: white;
+}

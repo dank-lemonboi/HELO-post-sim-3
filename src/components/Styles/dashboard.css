@@ -1,21 +1,101 @@
-.dahsboard_parent_container {
+.dashboard {
     box-sizing: border-box;
+    background: #f2f2f2;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .dashboard_child_top {
-    width: 70%;
+    width: 66%;
     margin: 0 auto;
-    margin-top: 1em;
+    margin-top: 1.5em;
+    display: flex;
+    justify-content: space-between;
+}
+
+#edit_link a {
+  text-decoration: none;
+  color: black;
+
+}
+
+#edit_link a:visited {
+  color: black;
+}
+
+.user_badge {
+    width: 321px;
+    height: 150px;
+    display: flex;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba( 0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.user_badge_left {
+    height: 150px;
+    width: 150px;
+}
+
+.user_badge_right {
+    height: 150px;
+    width: 171px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.user_badge_left img {
+    width: 129px;
+    height: 129px;
+    margin: 8px auto;
+    margin-left: 8px;
+    border: 3px solid #FF970f
+}
+
+.user_first_name {
+    font-size: 24px;
+}
+
+.user_last_name {
+    font-size: 24px;
+}
+
+.edit_button {
+    width: 150px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
+    border: solid 1px #ccc3c3;
+    border-radius: 1px;
+}
+
+.dashboard_onboarding_container {
+    height: 150px;
+    width: 500px;
+    box-sizing: border-box;
+    padding: 5%;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba( 0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .dashboard_recommend_parent {
-    width: 70%;
+    width: 66%;
+    height: 100vh;
     margin: 0 auto;
     margin-top: 3em;
-
+    background: white;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba( 0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .dashboard_recommend_header {
+    height: 60px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

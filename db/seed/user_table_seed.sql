@@ -10,5 +10,6 @@ CREATE TABLE users (
     birth_month TEXT,
     birth_year INTEGER,
     picture VARCHAR(500),
-    auth_id VARCHAR(500)
+    auth_id VARCHAR(500),
+    email VARCHAR(150)
 )

@@ -31,13 +31,13 @@ export default class Dashboard extends Component {
               <section className="dashboard_child_top">
                 <div className="user_badge">
                   <div className="user_badge_left">
-                    <img src={this.state.userInfo.picture} alt="User Image" />
+                    <img  src={this.state.userInfo.picture} alt="User Image" />
                   </div>
                   <div className="user_badge_right">
-                    <span className="user_first_name">{this.state.userInfo.first_name}</span>
-                    <span className="user_last_name">{this.state.userInfo.last_name}</span>
+                    <span className="user_first_name">{ (this.state.userInfo.first_name) ? this.state.userInfo.first_name : 'First Name'}</span>
+                    <span className="user_last_name">{ (this.state.userInfo.last_name) ? this.state.userInfo.last_name : 'Last Name'}</span>
                     
-                     <Link to='/profile'><button>Edit Profile</button></Link>
+                     <Link style={{color: 'black'}} to='/profile'><div className='edit_button'>Edit Profile</div></Link>
                     
                   </div>
                 </div>
@@ -55,7 +55,7 @@ export default class Dashboard extends Component {
                 <div className="dashboard_recommend_header">
                   <span>Recommended Friends</span>
                   <div className="recommend_header_left">
-                    <span>Sorted By</span>
+                    <span>Sorted By </span>
                     <select>
                       <option value="">First Name</option>
                       <option value="">Last Name</option>

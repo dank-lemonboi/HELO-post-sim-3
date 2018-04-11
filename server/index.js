@@ -29,9 +29,7 @@ app.use(sessions({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        maxAge: 234000
-    }
+    cookie: {}
 }))
 
 
@@ -40,17 +38,18 @@ app.use(passport.session())
 
 
 passport.use(new Auth0Strategy({
-  domain: DOMAIN,
-  clientID: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  callbackURL: CALLBACK_URL,
-  scope: 'openid profile'
+    domain: DOMAIN,
+    clientID: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    callbackURL: CALLBACK_URL,
+    scope: 'openid profile'
 }, function(accessToken, refreshToken, extraParams, profile, done) {
-
-  const db = app.get('db')
-  const userData = profile._json
-  let num = roboHash()
-  userData.picture = `https://robohash.org/${num}.png`
+    
+    const db = app.get('db')
+    const userData = profile._json
+    let num = roboHash();
+    userData.picture = `https://robohash.org/${num}.png`;
+    
 
   db.find_user([ profile.user_id ]).then( user => {
    if (!user[0]) {
@@ -91,7 +90,7 @@ app.get('/auth/me', (req, res) => {
 
 app.get('/api/logout', (req, res) => {
     req.logOut()
-    res.status(200).send()
+    res.redirect(`https://${DOMAIN}/v2/logout?returnTo=http%3A%2F%2Flocalhost:3000&client_id=${CLIENT_ID}`);
 })
 
 massive(CONNECTION_STRING).then( db => {

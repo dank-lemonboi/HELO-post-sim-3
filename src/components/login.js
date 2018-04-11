@@ -10,14 +10,15 @@ export default class Login extends Component {
     constructor() {
         super()
 
-        this.login = this.login.bind(this)
+        // this.login = this.login.bind(this)
     }
 
-    login() {
-            window.location.href = process.env.REACT_APP_LOGIN
-    }
+    // login() {
+    //         window.location.href = process.env.REACT_APP_LOGIN
+    // }
     
     render() {
+        console.log(this)
         return <div className="login_parent">
             <div className="login_wrapper">
               <div className="logo_wrapper">
@@ -25,9 +26,9 @@ export default class Login extends Component {
                 <h1>Helo</h1>
               </div>
               <div className="button_container">
-                <div className="login_button" onClick={() => this.login()}>
-                  Login / Register
-                </div>
+                <a href={process.env.REACT_APP_LOGIN}>
+                  <div className="login_button">Login / Register</div>
+                </a>
               </div>
             </div>
           </div>;
