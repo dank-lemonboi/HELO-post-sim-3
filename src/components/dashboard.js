@@ -24,7 +24,8 @@ export default class Dashboard extends Component {
 
     render(){
         console.log(this.state)
-        return <div className="dashboard">
+        return (
+            <div className="dashboard">
             <Navbar param="Dashboard" />
 
             <div className="dashboard_parent_container">
@@ -34,8 +35,23 @@ export default class Dashboard extends Component {
                     <img  src={this.state.userInfo.picture} alt="User Image" />
                   </div>
                   <div className="user_badge_right">
-                    <span className="user_first_name">{ (this.state.userInfo.first_name) ? this.state.userInfo.first_name : 'First Name'}</span>
-                    <span className="user_last_name">{ (this.state.userInfo.last_name) ? this.state.userInfo.last_name : 'Last Name'}</span>
+                    <span className="user_first_name">
+                    { 
+                      (this.state.userInfo.first_name) 
+                      ?
+                       this.state.userInfo.first_name 
+                      :
+                        null
+                    }
+                       </span>
+                    <span className="user_last_name">{ 
+                      (this.state.userInfo.last_name) 
+                      ?
+                       this.state.userInfo.last_name
+                      :
+                        null 
+                    }
+                      </span>
                     
                      <Link style={{color: 'black'}} to='/profile'><div className='edit_button'>Edit Profile</div></Link>
                     
@@ -57,21 +73,22 @@ export default class Dashboard extends Component {
                   <div className="recommend_header_left">
                     <span>Sorted By </span>
                     <select>
-                      <option value="">First Name</option>
-                      <option value="">Last Name</option>
-                      <option value="">Gender</option>
-                      <option value="">Hobby</option>
-                      <option value="">Hair Color</option>
-                      <option value="">Eye Color</option>
-                      <option value="">Birthday</option>
+                      <option value="fist">First Name</option>
+                      <option value="last">Last Name</option>
+                      <option value="gender">Gender</option>
+                      <option value="hobby">Hobby</option>
+                      <option value="hairColor">Hair Color</option>
+                      <option value="eyeColor">Eye Color</option>
+                      <option value="birthday">Birthday</option>
                     </select>
                   </div>
                 </div>
                 <div className="recommend_users_parent">
-                  <div className="recommend_users_child" />
+                  <div className="recommend_users_child"></div>
                 </div>
               </section>
             </div>
-          </div>;
+          </div>
+        )
     }
 }
