@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getFirst, getLast, whatGender, eyeColor, getHobby, getBirthDay, getBirthMonth, getBirthYear } from '../ducks/reducer'
+import { getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear } from '../ducks/reducer'
 
 import Navbar from './navbar'
 
 import './Styles/edit.css'
 
 class Edit extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             userInfo: {}
         }
+
+        this.updateUser = this.updateUser.bind(this)
     }
 
     componentDidMount() {
@@ -24,8 +26,18 @@ class Edit extends Component {
         })
     }
 
+
+    updateUser(){
+        const { user_id } = this.state.userInfo
+        const { firstName, lastName, gender, hairColor, eyeColor, hobby, birthdayDay, birthdayMonth, birthdayYear } = this.props
+        console.log(this.props)
+        axios.put('/api/user', { firstName, lastName, gender, hairColor, eyeColor, hobby, birthdayDay, birthdayMonth, birthdayYear, user_id} ).then( () => {
+            this.props.history.push('/dashboard')
+        }).catch()
+    }
+
     render() {
-        const { getFirst, getLast, whatGender, eyeColor, getHobby, getBirthDay, getBirthMonth, getBirthYear  } = this.props
+        const { getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear } = this.props
         return <div className="edit_parent_container">
             <Navbar param="Profile" />
 
@@ -37,19 +49,32 @@ class Edit extends Component {
                   </div>
                   <div className="user_info_right">
                     <span>
-                      {this.state.userInfo.first_name
-                        ? this.state.userInfo.first_name
-                        : null}
+                      { 
+                        this.state.userInfo.first_name
+                        ? 
+                        this.state.userInfo.first_name
+                        : 
+                        null
+                    }
                     </span>
                     <span>
-                      {this.state.userInfo.last_name
-                        ? this.state.userInfo.last_name
-                        : null}
+                      {
+                        this.state.userInfo.last_name
+                        ? 
+                        this.state.userInfo.last_name
+                        : 
+                        null
+                    }
                     </span>
                   </div>
                 </div>
                 <div className="edit_button_container">
-                  <div className="update_btn">Update</div>
+                  <div 
+                  className="update_btn"
+                  onClick={ () => this.updateUser()}
+                  >
+                  Update
+                  </div>
                   <div className="cancel_btn">Cancel</div>
                 </div>
               </div>
@@ -57,11 +82,21 @@ class Edit extends Component {
                 <div className="edit_info_wrapper">
                   <div className="user_edit_left">
                     <span>First Name</span>
-                    <input placeholder="Please Enter your First Name" />
+                    <input
+                        onChange={ (e) => getFirst(e.target.value)}
+                        placeholder="Please Enter your First Name"
+                        type='text' 
+                        />
                     <span>Last Name</span>
-                    <input placeholder="Please Enter your First Name" />
+                    <input
+                        onChange={(e) => getLast(e.target.value)}
+                        placeholder="Please Enter your First Name" 
+                        type='text'
+                        />
                     <span>Gender</span>
-                    <select>
+                    <select
+                        onChange={ (e) => whatGender(e.target.value) }  
+                    >
                       <option value="">-------</option>
                       <option value="female">Female</option>
                       <option value="male">Male</option>
@@ -69,7 +104,7 @@ class Edit extends Component {
                       <option value="N/A">N/A</option>
                     </select>
                     <span>Hair Color</span>
-                    <select>
+                    <select onChange={ (e) => getHair(e.target.value) }>
                       <option value="">-------</option>
                       <option value="black">Black</option>
                       <option value="brown">Brown</option>
@@ -77,7 +112,9 @@ class Edit extends Component {
                       <option value="bald">Bald</option>
                     </select>
                     <span>Eye Color</span>
-                    <select>
+                    <select
+                        onChange={ (e) => getEye(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="brown">Brown</option>
                       <option value="green">Green</option>
@@ -87,7 +124,9 @@ class Edit extends Component {
                   </div>
                   <div className="user_edit_right">
                     <span>Hobby</span>
-                    <select>
+                    <select
+                        onChange={ (e) => getHobby(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="programming">Programming</option>
                       <option value="hiking">Hiking</option>
@@ -95,7 +134,9 @@ class Edit extends Component {
                       <option value="paragliding">Paragliding</option>
                     </select>
                     <span>Birthday Day</span>
-                    <select>
+                    <select
+                        onChange={ (e) => getBirthDay(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -130,7 +171,9 @@ class Edit extends Component {
                       <option value="31">31</option>
                     </select>
                     <span>Birthday Month</span>
-                    <select>
+                    <select
+                        onChange={ (e) => getBirthMonth(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="February">February</option>
                       <option value="March">March</option>
@@ -145,7 +188,9 @@ class Edit extends Component {
                       <option value="December">December</option>
                     </select>
                     <span>Birthday Year</span>
-                    <select>
+                    <select
+                        onChange={ (e) => getBirthYear(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="2017">2017</option>
                       <option value="2016">2016</option>
@@ -191,9 +236,16 @@ class Edit extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        state
+    firstName: state.firstName,
+    lastName: state.lastName,
+    gender: state.gender,
+    hairColor: state.hairColor,
+    eyeColor: state.eyeColor,
+    hobby: state.hobby,
+    birthdayDay: state.birthdayDay,
+    birthdayMonth: state.birthdayMonth,
+    birthdayYear: state.birthdayYear
     }
 }
 
-export default connect(mapStateToProps, 
-{ getFirst, getLast, whatGender, eyeColor, getHobby, getBirthDay, getBirthMonth, getBirthYear } )(Edit)
+export default connect(mapStateToProps, { getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear })(Edit)

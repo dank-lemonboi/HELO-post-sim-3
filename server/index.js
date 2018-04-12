@@ -8,6 +8,7 @@ const express = require('express'),
       cors = require('cors'),
       checkForSession = require('./middlewares/checkForSession'),
       roboHash = require('./middlewares/roboHash')
+      ctrl = require('./controllers/userInfoController')
 
       const {
           SERVER_PORT,
@@ -87,6 +88,9 @@ app.get('/auth/me', (req, res) => {
         res.status(401).send('Nice try... Login Homie.')
     }
 })
+
+app.put('/api/user', ctrl.update)
+// app.get('/api/getusers', ctrl.getUsers)
 
 app.get('/api/logout', (req, res) => {
     req.logOut()

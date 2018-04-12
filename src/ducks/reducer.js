@@ -16,7 +16,7 @@ const GET_GENDER = "GET_GENDER"
 const HAIR_COLOR = "HAIR_COLOR"
 const EYE_COLOR = "EYE_COLOR"
 const GET_HOBBY = "GET_HOBBY"
-const GET_BIRTH_DAY ="GET_BIRTH_DAY"
+const GET_BIRTH_DAY = "GET_BIRTH_DAY"
 const GET_BIRTH_MONTH = "GET_BIRTH_MONTH"
 const GET_BIRTH_YEAR = "GET_BIRTH_YEAR"
 
@@ -40,7 +40,8 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {birthdayMonth: action.payload})
         case GET_BIRTH_YEAR:
             return Object.assign({}, state, {birthdayYear: action.payload})
-        return state;
+        default:
+            return state
     }
 }
 
@@ -65,7 +66,14 @@ export function whatGender(gender) {
     }
 }
 
-export function eyeColor(color) {
+export function getHair(hair) {
+    return {
+        type: HAIR_COLOR,
+        payload: hair
+    }
+}
+
+export function getEye(color) {
     return {
         type: EYE_COLOR,
         payload: color

@@ -10,7 +10,8 @@ export default class Dashboard extends Component {
         super()
 
         this.state = {
-            userInfo: {}
+            userInfo: {},
+            users: []
         }
     }
 
@@ -19,6 +20,11 @@ export default class Dashboard extends Component {
             this.setState({
                 userInfo: user.data
             })
+        // axios.get(`/api/getusers?filterValue=${}`).then( users => {
+        //   this.setState({
+        //     users: users.data
+        //   })
+        // })
         }).catch( () => { this.props.history.push('/')})
     }
 
@@ -73,18 +79,20 @@ export default class Dashboard extends Component {
                   <div className="recommend_header_left">
                     <span>Sorted By </span>
                     <select>
-                      <option value="fist">First Name</option>
-                      <option value="last">Last Name</option>
+                      <option value="first_name">First Name</option>
+                      <option value="last_name">Last Name</option>
                       <option value="gender">Gender</option>
                       <option value="hobby">Hobby</option>
-                      <option value="hairColor">Hair Color</option>
-                      <option value="eyeColor">Eye Color</option>
+                      <option value="hair_color">Hair Color</option>
+                      <option value="eye_color">Eye Color</option>
                       <option value="birthday">Birthday</option>
                     </select>
                   </div>
                 </div>
                 <div className="recommend_users_parent">
-                  <div className="recommend_users_child"></div>
+                  <div className="recommend_users_child">
+                  
+                  </div>
                 </div>
               </section>
             </div>
