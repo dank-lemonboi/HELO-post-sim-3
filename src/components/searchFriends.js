@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './Styles/search.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import Navbar from './navbar'
 
@@ -11,7 +12,8 @@ export default class Search extends Component {
         this.state = {
             userList: [],
             optionVal: '',
-            inputVal: ''
+            inputVal: '',
+            pages: [1,2,3,4,5]
         }
 
         this.search = this.search.bind(this)
@@ -55,6 +57,12 @@ export default class Search extends Component {
             </div>
         )  
     })
+
+    const pages = this.state.pages.map( (page, i) => {
+        return (
+           <Link to={`/searchUsers/${page}`}><div className='page_button'>{page}</div></Link>
+        )
+    })
         return (
             <div className="search_container">
             <Navbar param="Search" />
@@ -79,6 +87,9 @@ export default class Search extends Component {
               </div>
               <div className="search_users_container" >
                 {newUser}
+              </div>
+              <div className='pages_container'>
+                {pages}
               </div>
             </section>
           </div>

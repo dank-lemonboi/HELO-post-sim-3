@@ -15,8 +15,8 @@ module.exports = {
     search: (req, res) => {
         const db = req.app.get('db')
         if(req.query.optionVal === '' && req.query.inputVal === '') {
-            db.search_users([req.user.user_id]).then( users => {
-                console.log(users)
+            db.search_users([req.user.user_id, req.params.pg]).then( users => {
+                // console.log(users)
                 res.status(200).send(users)
             } )
         }

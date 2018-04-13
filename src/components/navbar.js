@@ -10,10 +10,6 @@ export default class Navbar extends Component {
     constructor(props){
         super(props)
 
-        this.state = {
-            page: 1
-        }
-
         // this.logOut = this.logOut.bind(this)
     }
 
@@ -30,7 +26,7 @@ export default class Navbar extends Component {
               <Link to="/dashboard">
                 <img src={Home} alt="Home Navbar Icon" />
               </Link>
-              <Link to={`/searchUsers/${this.state.page}`}>
+              <Link to={`/searchUsers/1`}>
                 <img src={Search} alt="Search Navbar Icon" />
               </Link>
             </div>
