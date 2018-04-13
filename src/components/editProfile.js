@@ -82,15 +82,17 @@ class Edit extends Component {
                 <div className="edit_info_wrapper">
                   <div className="user_edit_left">
                     <span>First Name</span>
-                    <input
+                    <input className='edit_input'
+                        value = {this.props.firstName}
                         onChange={ (e) => getFirst(e.target.value)}
-                        placeholder="Please Enter your First Name"
+                        placeholder= "Please Enter your First Name"
                         type='text' 
                         />
                     <span>Last Name</span>
-                    <input
+                    <input className='edit_input'
+                        value = {this.props.lastName}
                         onChange={(e) => getLast(e.target.value)}
-                        placeholder="Please Enter your First Name" 
+                        placeholder= "Please Enter your First Name" 
                         type='text'
                         />
                     <span>Gender</span>

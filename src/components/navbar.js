@@ -30,7 +30,7 @@ export default class Navbar extends Component {
               <Link to="/dashboard">
                 <img src={Home} alt="Home Navbar Icon" />
               </Link>
-              <Link to={`/search/${this.state.page}`}>
+              <Link to={`/searchUsers/${this.state.page}`}>
                 <img src={Search} alt="Search Navbar Icon" />
               </Link>
             </div>

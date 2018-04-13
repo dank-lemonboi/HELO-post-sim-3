@@ -54,7 +54,7 @@ passport.use(new Auth0Strategy({
 
   db.find_user([ profile.user_id ]).then( user => {
    if (!user[0]) {
-       db.create_user([userData.family_name, userData.given_name, userData.picture, profile.id]).then( user => {
+       db.create_user([userData.given_name, userData.family_name, userData.picture, profile.id]).then( user => {
         return done( null, user[0].user_id );
 } ) } else {
         return done( null, user[0].user_id );
@@ -89,8 +89,9 @@ app.get('/auth/me', (req, res) => {
     }
 })
 
+app.get('/api/searchUsers/:pg', ctrl.search)
+app.get('/api/getusers', ctrl.getUsers)
 app.put('/api/user', ctrl.update)
-// app.get('/api/getusers', ctrl.getUsers)
 
 app.get('/api/logout', (req, res) => {
     req.logOut()

@@ -2,7 +2,7 @@
     box-sizing: border-box;
     background: #f2f2f2;
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .dashboard_child_top {
@@ -91,6 +91,7 @@
     padding: 10px;
     border-radius: 2px;
     box-shadow: 0 1px 3px 0 rgba( 0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    overflow: auto;
 }
 
 .dashboard_recommend_header {
@@ -100,4 +101,66 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+select {
+    width: 140px;
+    font-size: 18px;
+}
+
+.recommend_users_child {
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.recommended_user_badge {
+    height: 130px;
+    width: 47%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    padding-right: 20px;
+}
+
+.recommend_user_left {
+    display: flex;
+    align-items: center;
+}
+
+h3 {
+    margin: 0;
+}
+
+.recommended_user_badge img {
+    height: 125px;
+    widows: 125px;
+}
+
+
+
+.add_friend_button {
+    height: 38px;
+    width: 100px;
+    background:#ff7a6e;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: .3em;
+    color: white;
+    font-size: 13px;
+}
+
+.add_friend_button:hover {
+    cursor: pointer;
 }

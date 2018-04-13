@@ -11,6 +11,6 @@ export default (
     <Route path='/' component={Login} exact />
     <Route path='/dashboard' component={Dashboard}/>
     <Route path='/profile' component={Edit}/>
-    <Route path='/search/:pg' component={Search}/>
+    <Route path='/searchUsers/:pg' component={Search}/>
   </Switch>
 );

@@ -6,12 +6,13 @@ import './Styles/dashboard.css'
 import { Link } from 'react-router-dom'
 
 export default class Dashboard extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state = {
             userInfo: {},
-            users: []
+            userList: [],
+            filterVal: ''
         }
     }
 
@@ -20,16 +21,58 @@ export default class Dashboard extends Component {
             this.setState({
                 userInfo: user.data
             })
-        // axios.get(`/api/getusers?filterValue=${}`).then( users => {
-        //   this.setState({
-        //     users: users.data
-        //   })
-        // })
+        axios.get(`/api/getusers`).then( users => {
+          this.setState({
+            userList: users.data
+          })
+        }, console.log(this.state.users))
         }).catch( () => { this.props.history.push('/')})
     }
 
     render(){
-        console.log(this.state)
+      console.log(this.state.userList, this.state.userInfo)
+      const { filterVal, userList, userInfo } = this.state
+        const filteredList = userList.filter( elem => {
+          
+          if (filterVal === 'first_name') {
+            return elem.first_name === userInfo.first_name
+          }
+          if (filterVal === 'last_name') {
+            return elem.last_name === userInfo.last_name
+          }
+          if (filterVal === "hobby") {
+            return elem.hobby === userInfo.hobby
+          }
+          if (filterVal === 'gender') {
+            return elem.gender === userInfo.gender
+          }
+          if (filterVal === 'hair_color') {
+            return elem.hair_color === userInfo.hair_color
+          }
+          if (filterVal === 'eye_color') {
+            return elem.eye_color === userInfo.eye_color
+          }
+          if (filterVal === 'birthday') {
+            return 'elem.birth_month + elem.birth_day + elem.birth_year' === 'userList.birth_month + userList.birth_day + userList.birth_year'
+          } 
+          if (filterVal === '') {
+            return userList;
+          } 
+        })
+        const newUser = filteredList.map( (user, i) => {
+          return (
+            <div className="recommended_user_badge" key={user.user_id}>
+              <div className="recommend_user_left">
+                <img className="recommend_user_picture" src={user.picture} alt="user picture" />
+                <div className="recommend_user_name">
+                  <h3>{user.first_name}</h3>
+                  <h3>{user.last_name}</h3>
+                </div>
+              </div>
+              <div className="add_friend_button">Add Friend</div>
+            </div>
+        )  
+        })
         return (
             <div className="dashboard">
             <Navbar param="Dashboard" />
@@ -78,7 +121,10 @@ export default class Dashboard extends Component {
                   <span>Recommended Friends</span>
                   <div className="recommend_header_left">
                     <span>Sorted By </span>
-                    <select>
+                    <select
+                      onChange= { (e) => this.setState({ filterVal: e.target.value }) }
+                    >
+                      <option value={''}>------------</option>
                       <option value="first_name">First Name</option>
                       <option value="last_name">Last Name</option>
                       <option value="gender">Gender</option>
@@ -91,7 +137,7 @@ export default class Dashboard extends Component {
                 </div>
                 <div className="recommend_users_parent">
                   <div className="recommend_users_child">
-                  
+                   {newUser}
                   </div>
                 </div>
               </section>
