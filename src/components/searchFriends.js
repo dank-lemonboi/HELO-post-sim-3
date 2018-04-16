@@ -66,12 +66,12 @@ export default class Search extends Component {
 }
 
 setPages() {
+    // Populate pages array dynamically
+    // take in user count from database, push page numbers to array counting by how many people you want to populate the page.
+    // Offset logic can be found in the default_serach_usrers sql method.
     let pageCount = 1
     let pagesArr = []
     axios.get('/api/users').then( users => {
-        this.setState({
-            userCount: users.data
-        })
         for (let i = 0; i <= users.data.length; i += 4) {
           pagesArr.push(pageCount);
           pageCount++;
@@ -117,7 +117,7 @@ removeFriend(friendId) {
 
     const pages = this.state.pages.map( (page, i) => {
         return (
-
+            // dynamically route to the desired page
            <Link to={`/searchUsers/${page}`}><div className='page_button'>{page}</div></Link>
         )
     })

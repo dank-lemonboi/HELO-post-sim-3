@@ -15,10 +15,11 @@ module.exports = {
     search: (req, res) => {
         const db = req.app.get('db')
         if(req.query.optionVal === '' && req.query.inputVal === '') {
+            // calculate offset with the req.params.pg
             db.default_search_users([req.user.user_id, req.params.pg]).then( users => {
                 
                 db.get_friends([req.user.user_id]).then( friends => {
-                    for (let i = 0; i < users.length; i++){
+                    for (let i = 0; i < users.length; i++) {
                         // assign a friend key which defaults to false
                         users[i].isFriend = false;
                         for(let j = 0; j < friends.length; j++) {
