@@ -92,6 +92,7 @@ app.get('/auth/me', (req, res) => {
 app.get('/api/searchUsers/:pg', ctrl.search)
 app.get('/api/getusers', ctrl.getUsers)
 app.put('/api/user', ctrl.update)
+app.post('/api/addfriend', ctrl.addFriend)
 
 app.get('/api/logout', (req, res) => {
     req.logOut()

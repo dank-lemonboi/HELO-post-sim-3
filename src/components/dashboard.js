@@ -14,6 +14,8 @@ export default class Dashboard extends Component {
             userList: [],
             filterVal: ''
         }
+
+        this.addFriend = this.addFriend.bind(this)
     }
 
     componentDidMount() {
@@ -27,6 +29,14 @@ export default class Dashboard extends Component {
           })
         }, console.log(this.state.users))
         }).catch( () => { this.props.history.push('/')})
+    }
+
+    addFriend(friendId) {
+      axios.post('/api/addfriend', {friendId} ).then( users => {
+        this.setState({
+          userList: users.data
+        })
+      })
     }
 
     render(){
@@ -69,7 +79,7 @@ export default class Dashboard extends Component {
                   <h3>{user.last_name}</h3>
                 </div>
               </div>
-              <div className="add_friend_button">Add Friend</div>
+              <div onClick={ () => this.addFriend(user.user_id) } className="add_friend_button">Add Friend</div>
             </div>
         )  
         })
