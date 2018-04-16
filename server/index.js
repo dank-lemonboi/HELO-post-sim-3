@@ -92,7 +92,9 @@ app.get('/auth/me', (req, res) => {
 app.get('/api/searchUsers/:pg', ctrl.search)
 app.get('/api/getusers', ctrl.getUsers)
 app.put('/api/user', ctrl.update)
-app.post('/api/addfriend', ctrl.addFriend)
+app.put('/api/addfriend', ctrl.addFriend)
+app.put('/api/removeFriend', ctrl.remove)
+app.get('/api/users', ctrl.count)
 
 app.get('/api/logout', (req, res) => {
     req.logOut()

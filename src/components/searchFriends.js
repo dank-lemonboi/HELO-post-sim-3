@@ -13,11 +13,15 @@ export default class Search extends Component {
             userList: [],
             optionVal: '',
             inputVal: '',
-            pages: [1,2,3,4,5,6,7,8,9,10]
+            pages: [],
+            userCount: []
         }
 
         this.search = this.search.bind(this)
         this.reset = this.reset.bind(this)
+        this.addFriend = this.addFriend.bind(this)
+        this.removeFriend = this.removeFriend.bind(this)
+        this.setPages = this.setPages.bind(this)
     }
 
      componentDidMount() {
@@ -30,16 +34,18 @@ export default class Search extends Component {
         axios.get(`/api/searchUsers/${this.props.match.params.pg}?optionVal=${this.state.optionVal}&inputVal=${this.state.inputVal}`).then(users => {
             this.setState({
               userList: users.data
-            });
-          }, console.log(this.state.userList));
+            })
+          })
+          this.setPages()
     }
 
     // use componentDidUpdate lifecycle method to compare previous props to current props, if they're different run the method
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if(prevProps.match.params.pg !== this.props.match.params.pg) {
            this.search()
         }
     }
+        
 
     search() {
          axios.get(`/api/searchUsers/${this.props.match.params.pg}?optionVal=${this.state.optionVal}&inputVal=${this.state.inputVal}` ).then( users => {
@@ -59,7 +65,34 @@ export default class Search extends Component {
     })
 }
 
+setPages() {
+    let pageCount = 1
+    let pagesArr = []
+    axios.get('/api/users').then( users => {
+        this.setState({
+            userCount: users.data
+        })
+        for (let i = 0; i <= users.data.length; i += 4) {
+          pagesArr.push(pageCount);
+          pageCount++;
+        }
+        this.setState({ pages: pagesArr });
+    })
+    
+}
+ addFriend(friendId) {
+      axios.put('/api/addfriend', { friendId } ).then( users => {
+        this.search()
+        })
+      
+    }
 
+removeFriend(friendId) {
+    axios.put('/api/removeFriend', { friendId }).then( users => {
+        this.search()
+        })
+    
+}
     render() {
         const newUser = this.state.userList.map( (user, i) => {
           return (
@@ -71,7 +104,13 @@ export default class Search extends Component {
                   <h3>{user.last_name}</h3>
                 </div>
               </div>
-               <div className="add_friend_button">Add Friend</div>
+              {
+                  (user.isFriend)
+                  ?
+               <div onClick={ () => this.removeFriend(user.user_id)} className="remove_friend_button">Remove Friend</div>
+                  :
+               <div onClick={ () => this.addFriend(user.user_id) } className="add_friend_button">Add Friend</div>
+              }       
             </div>
         )  
     })

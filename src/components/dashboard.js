@@ -27,12 +27,12 @@ export default class Dashboard extends Component {
           this.setState({
             userList: users.data
           })
-        }, console.log(this.state.users))
+        })
         }).catch( () => { this.props.history.push('/')})
     }
 
     addFriend(friendId) {
-      axios.post('/api/addfriend', {friendId} ).then( users => {
+      axios.put('/api/addfriend', { friendId } ).then( users => {
         this.setState({
           userList: users.data
         })

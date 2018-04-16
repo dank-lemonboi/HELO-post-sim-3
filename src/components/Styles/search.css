@@ -39,6 +39,20 @@
     display: flex;
 }
 
+.remove_friend_button {
+    border:  1px solid black;
+    background: radial-gradient(circle at 50% - 46%, #737373, #403d39);    
+    width: 130px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.remove_friend_button:hover {
+    cursor: pointer;
+}
+
 .search_button {
     width: 130px;
     height: 35px;
