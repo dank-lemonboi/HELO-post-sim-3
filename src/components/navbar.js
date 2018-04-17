@@ -27,7 +27,7 @@ export default class Navbar extends Component {
                 <img src={Home} alt="Home Navbar Icon" />
               </Link>
               <Link to={`/searchUsers/1`}>
-                <img src={Search} alt="Search Navbar Icon" />
+                <img id='search' src={Search} alt="Search Navbar Icon" />
               </Link>
             </div>
             <div className="navbar_center">{this.props.param}</div>

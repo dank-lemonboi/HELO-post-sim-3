@@ -53,7 +53,7 @@ export default class Search extends Component {
             userList: users.data,
             optionVal: '',
             inputVal: ''
-          })
+          }, )
         }).catch()
     }
 
@@ -107,9 +107,11 @@ removeFriend(friendId) {
               {
                   (user.isFriend)
                   ?
-               <div onClick={ () => this.removeFriend(user.user_id)} className="remove_friend_button_search">Remove Friend</div>
+                  <div onClick={ () => this.removeFriend(user.user_id)} 
+                  className="remove_friend_button_search">Remove Friend</div>
                   :
-               <div onClick={ () => this.addFriend(user.user_id) } className="add_friend_button_search">Add Friend</div>
+                  <div onClick={ () => this.addFriend(user.user_id) } 
+                  className="add_friend_button_search">Add Friend</div>
               }       
             </div>
         )  
@@ -117,8 +119,13 @@ removeFriend(friendId) {
 
     const pages = this.state.pages.map( (page, i) => {
         return (
-            // dynamically route to the desired page
-           <Link to={`/searchUsers/${page}`}><div className= 'page_button'>{page}</div></Link>
+            
+              (this.props.match.params.pg === `${page}`)
+              ?
+               <Link to={`/searchUsers/${page}`}><div className= 'search_page_button selected'>{page}</div></Link>
+              :
+               <Link to={`/searchUsers/${page}`}><div className= 'search_page_button'>{page}</div></Link>
+            
         )
     })
         return (
@@ -142,7 +149,7 @@ removeFriend(friendId) {
                     type="text" />
                 </div>
                 <div className='buttons'>
-                  <div onClick={ () => this.search() } className='search_user_button'>Search</div>
+                  <Link to='/searchUsers/1'><div onClick={ () => this.search() } className='search_user_button'>Search</div></Link>
                   <div onClick={ () => this.reset() } className='reset_button'>Reset</div>
                 </div>
               </div>

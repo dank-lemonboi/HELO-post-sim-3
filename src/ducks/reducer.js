@@ -19,6 +19,7 @@ const GET_HOBBY = "GET_HOBBY"
 const GET_BIRTH_DAY = "GET_BIRTH_DAY"
 const GET_BIRTH_MONTH = "GET_BIRTH_MONTH"
 const GET_BIRTH_YEAR = "GET_BIRTH_YEAR"
+const CANCEL = "CANCEL"
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -40,8 +41,16 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {birthdayMonth: action.payload})
         case GET_BIRTH_YEAR:
             return Object.assign({}, state, {birthdayYear: action.payload})
+        case CANCEL:
+            return Object.assign({}, state)
         default:
             return state
+    }
+}
+
+export function cancel() {
+    return {
+        type: CANCEL
     }
 }
 

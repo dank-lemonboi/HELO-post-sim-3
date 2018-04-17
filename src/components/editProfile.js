@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear } from '../ducks/reducer'
+import { cancel, getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear } from '../ducks/reducer'
 
 import Navbar from './navbar'
 
@@ -16,6 +16,7 @@ class Edit extends Component {
         }
 
         this.updateUser = this.updateUser.bind(this)
+        this.cancel = this.cancel.bind(this)
     }
 
     componentDidMount() {
@@ -23,7 +24,7 @@ class Edit extends Component {
             this.setState({
                 userInfo: user.data
             })
-        })
+        }).catch( () => { this.props.history.push('/')})
     }
 
 
@@ -34,6 +35,12 @@ class Edit extends Component {
         axios.put('/api/user', { firstName, lastName, gender, hairColor, eyeColor, hobby, birthdayDay, birthdayMonth, birthdayYear, user_id} ).then( () => {
             this.props.history.push('/dashboard')
         }).catch()
+    }
+
+
+    cancel() {
+      this.props.cancel()
+      window.setTimeout(this.props.history.push('/dashboard'), 200)
     }
 
     render() {
@@ -75,7 +82,7 @@ class Edit extends Component {
                   >
                   Update
                   </div>
-                  <div className="cancel_btn">Cancel</div>
+                  <div onClick={ () => this.cancel() }  className="cancel_btn">Cancel</div>
                 </div>
               </div>
               <section className="edit_info_container">
@@ -83,21 +90,19 @@ class Edit extends Component {
                   <div className="user_edit_left">
                     <span>First Name</span>
                     <input className='edit_input'
-                        value = {this.props.firstName}
                         onChange={ (e) => getFirst(e.target.value)}
                         placeholder= "Please Enter your First Name"
                         type='text' 
                         />
                     <span>Last Name</span>
                     <input className='edit_input'
-                        value = {this.props.lastName}
                         onChange={(e) => getLast(e.target.value)}
                         placeholder= "Please Enter your First Name" 
                         type='text'
                         />
                     <span>Gender</span>
                     <select
-                        onChange={ (e) => whatGender(e.target.value) }  
+                        onChange={ (e) => whatGender(e.target.value) } 
                     >
                       <option value="">-------</option>
                       <option value="female">Female</option>
@@ -106,7 +111,8 @@ class Edit extends Component {
                       <option value="N/A">N/A</option>
                     </select>
                     <span>Hair Color</span>
-                    <select onChange={ (e) => getHair(e.target.value) }>
+                    <select onChange={ (e) => getHair(e.target.value) }
+                    >
                       <option value="">-------</option>
                       <option value="black">Black</option>
                       <option value="brown">Brown</option>
@@ -250,4 +256,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear })(Edit)
+export default connect(mapStateToProps, { cancel, getFirst, getLast, whatGender, getHair, getEye, getHobby, getBirthDay, getBirthMonth, getBirthYear })(Edit)

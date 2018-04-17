@@ -14,18 +14,26 @@
     display: flex;    
     width: 33.3333%;  
     margin-left: 5em;  
-    box-sizing: border-box
-    
+    box-sizing: border-box;
+    align-items: center;
 }
 
 .navbar_left_container img {
     margin-left: 12px;
+    height: 1.8em;
+    padding-top: 3px;
+}
+
+#search {
+    margin-left: 20px;
+   padding-top: 4px;
 }
 
 .container_left_title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    margin-left: 35px;
 }
 
 img:hover {
@@ -35,7 +43,7 @@ img:hover {
 .navbar_center {
     width: 33.3333%;
     box-sizing: border-box; 
-    font-size: 24px;
+    font-size: 28px;
     letter-spacing: 1px;
     
 }

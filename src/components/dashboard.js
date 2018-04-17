@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
             return elem.eye_color === userInfo.eye_color
           }
           if (filterVal === 'birthday') {
-            return 'elem.birth_month + elem.birth_day + elem.birth_year' === 'userList.birth_month + userList.birth_day + userList.birth_year'
+            return (elem.birth_day === userInfo.birth_day && elem.birth_month === userInfo.birth_month && elem.birth_year === userInfo.birth_year)
           } 
           if (filterVal === '') {
             return userList;
