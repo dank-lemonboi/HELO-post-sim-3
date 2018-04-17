@@ -68,7 +68,7 @@ export default class Search extends Component {
 setPages() {
     // Populate pages array dynamically
     // take in user count from database, push page numbers to array counting by how many people you want to populate the page.
-    // Offset logic can be found in the default_serach_usrers sql method.
+    // Offset logic can be found in the default_search_users sql method.
     let pageCount = 1
     let pagesArr = []
     axios.get('/api/users').then( users => {
@@ -107,9 +107,9 @@ removeFriend(friendId) {
               {
                   (user.isFriend)
                   ?
-               <div onClick={ () => this.removeFriend(user.user_id)} className="remove_friend_button">Remove Friend</div>
+               <div onClick={ () => this.removeFriend(user.user_id)} className="remove_friend_button_search">Remove Friend</div>
                   :
-               <div onClick={ () => this.addFriend(user.user_id) } className="add_friend_button">Add Friend</div>
+               <div onClick={ () => this.addFriend(user.user_id) } className="add_friend_button_search">Add Friend</div>
               }       
             </div>
         )  
@@ -118,7 +118,7 @@ removeFriend(friendId) {
     const pages = this.state.pages.map( (page, i) => {
         return (
             // dynamically route to the desired page
-           <Link to={`/searchUsers/${page}`}><div className='page_button'>{page}</div></Link>
+           <Link to={`/searchUsers/${page}`}><div className= 'page_button'>{page}</div></Link>
         )
     })
         return (
@@ -142,7 +142,7 @@ removeFriend(friendId) {
                     type="text" />
                 </div>
                 <div className='buttons'>
-                  <div onClick={ () => this.search() } className='search_button'>Search</div>
+                  <div onClick={ () => this.search() } className='search_user_button'>Search</div>
                   <div onClick={ () => this.reset() } className='reset_button'>Reset</div>
                 </div>
               </div>

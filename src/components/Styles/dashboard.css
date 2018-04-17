@@ -70,6 +70,8 @@
     background: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
     border: solid 1px #ccc3c3;
     border-radius: 1px;
+    margin-bottom: 6px;
+    margin-left: 5px;
 }
 
 .dashboard_onboarding_container {
